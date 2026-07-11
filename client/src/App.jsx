@@ -3,11 +3,12 @@ import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import axios from 'axios';
-// import { Button, Card, ProfileCard } from "virtual-ui-library01"
-// import { Button } from '../../library/src'
+import { useDispatch } from 'react-redux';
+import { setUserData } from './redux/userSlice';
 
 function App() {
   const [count, setCount] = useState(0);
+  const dispatch = useDispatch()
 
 
   useEffect(() => {
@@ -16,20 +17,18 @@ function App() {
         const res = await axios.get(import.meta.env.VITE_SERVER_URL + "/api/user/currentuser", {
           withCredentials: true
         })
-        console.log("🚀 ~ fetchUser ~ res:", res)
+        dispatch(setUserData(res.data))
 
       } catch (error) {
         console.log("🚀 ~ fetchUser ~ error:", error)
+        dispatch(setUserData(null));
       }
     }
+    fetchUser()
   }, [])
 
   return (
     <Routes>
-      {/* <h1>hi here how are you?</h1>
-      <Button />
-      <Card />
-      <ProfileCard/> */}
       <Route path='/' element={<Home />}>
 
       </Route>

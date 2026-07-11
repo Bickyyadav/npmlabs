@@ -1,20 +1,19 @@
 import User from "../models/user.model.js";
+import { genToken } from "../configs/token.js";
 
 export const googleAuth = async (req, res) => {
     try {
         const { name, email } = req.body;
-        console.log("🚀 ~ googleAuth ~ email:", email)
-        console.log("🚀 ~ googleAuth ~ name:", name)
-        const user = await User.findOne({ email })
+        let user = await User.findOne({ email })
         if (!user) {
             user = await User.create({ name, email })
         }
         let token = await genToken(user._id)
         res.cookie("token", token, {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === 'production',
             sameSite: "strict",
-            maxAge: 7 * 24 * 60 * 60 * 10000
+            maxAge: 7 * 24 * 60 * 60 * 1000
         })
         return res.status(200).json(user)
     } catch (error) {
@@ -24,16 +23,16 @@ export const googleAuth = async (req, res) => {
 }
 
 
-export const logOut = async () => {
+export const logOut = async (req, res) => {
     try {
-        await res.clearCookie("token", {
+        res.clearCookie("token", {
             httpOnly: true,
-            secure: false,
+            secure: process.env.NODE_ENV === 'production',
             sameSite: "strict",
         })
         res.status(200).json({ messages: "logout successfully" })
     } catch (error) {
         res.status(500).json({ messages: `failed to logout user ${error}` })
-        console.log("🚀 ~ googleAuth ~ error:", error)
+        console.log("🚀 ~ logOut ~ error:", error)
     }
 }

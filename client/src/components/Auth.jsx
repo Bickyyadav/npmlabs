@@ -41,11 +41,10 @@ const Auth = ({ onClose }) => {
             let name = User.displayName
             let email = User.email
             const result = await axios.post(import.meta.env.VITE_SERVER_URL + "/api/auth/google", { name, email }, { withCredentials: true })
-            console.log("🚀 ~ handleGoogleLogin ~ result:", result)
-            // dispatch(setUserData(result.data))
+            dispatch(setUserData(result.data))
             onClose()
         } catch (error) {
-            // dispatch(setUserData(null))
+            dispatch(setUserData(null))
             console.log(error)
         }
     }

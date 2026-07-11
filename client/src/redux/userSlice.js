@@ -1,9 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
-    value: 0,
-}
-
 export const userSlice = createSlice({
     name: 'user',
     initialState: {
@@ -24,7 +20,7 @@ export const userSlice = createSlice({
     },
 })
 
-export const { setUserData } = counterSlice.actions
+export const { setUserData } = userSlice.actions
 export const { setAllUsers } = userSlice.actions
 export const { setAllComponents } = userSlice.actions
 
