@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 import { AnimatePresence, motion } from "motion/react"
-import { FiCpu, FiZap, FiPlus, FiAlertCircle, FiArrowRight, FiLoader, FiLayers, FiEye, FiCode, FiCheckCircle, FiSave, FiArrowLeft, FiRefreshCw, FiPackage } from 'react-icons/fi'
+import { FiCpu, FiZap, FiPlus, FiAlertCircle, FiArrowRight, FiLoader, FiLayers, FiEye, FiCode, FiCheckCircle, FiSave, FiArrowLeft, FiRefreshCw, FiPackage, FiUploadCloud } from 'react-icons/fi'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
