@@ -25,7 +25,9 @@ const steps = [
 
 
 const Auth = ({ onClose }) => {
+    
     const [active, setActive] = useState(0)
+    
     // const dispatch = useDispatch()
 
 
