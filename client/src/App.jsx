@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setUserData } from './redux/userSlice';
 import ComponentGenerator from './pages/ComponentGenerator';
-import { Button, ProfileCard,EcommerceCard } from "virtual-ui-library01"
+// import { Button, EcommerceCard, SearchBox } from "virtual-ui-library01"
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,15 +30,15 @@ function App() {
   }, [])
 
   return (
-    // <Routes>
-    //   <Route path='/' element={<Home />} />
-    //   <Route path="/generate" element={<ComponentGenerator />} />
-    // </Routes>
-    <>
-      <Button />
-      <ProfileCard/>
-      <EcommerceCard />
-    </>
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path="/generate" element={<ComponentGenerator />} />
+    </Routes>
+    // <>
+    //   <Button />
+    //   <EcommerceCard />
+    //   <SearchBox />
+    // </>
   )
 }
 

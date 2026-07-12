@@ -32,7 +32,7 @@ __export(index_exports, {
   Button: () => Button,
   Card: () => Card,
   EcommerceCard: () => EcommerceCard,
-  ProfileCard: () => ProfileCard
+  SearchBox: () => SearchBox
 });
 module.exports = __toCommonJS(index_exports);
 
@@ -130,86 +130,8 @@ var Card = ({
   );
 };
 
-// src/components/ProfileCard/profilecard.jsx
-var import_react3 = __toESM(require("react"));
-var ProfileCard = ({
-  name = "Jane Doe",
-  role = "Product Designer",
-  bio = "Passionate about crafting delightful user experiences.",
-  avatarUrl = "https://i.pravatar.cc/150",
-  bgColor = "#ffffff",
-  accentColor = "#4f46e5",
-  textColor = "#111827",
-  size = "medium",
-  onFollow = () => {
-  }
-}) => {
-  const [isHovered, setIsHovered] = (0, import_react3.useState)(false);
-  const [isFollowing, setIsFollowing] = (0, import_react3.useState)(false);
-  const sizeStyles = {
-    small: { width: "220px", padding: "16px", avatar: "60px" },
-    medium: { width: "280px", padding: "22px", avatar: "80px" },
-    large: { width: "340px", padding: "28px", avatar: "100px" }
-  };
-  const currentSize = sizeStyles[size] || sizeStyles.medium;
-  const cardStyle = {
-    width: currentSize.width,
-    padding: currentSize.padding,
-    backgroundColor: bgColor,
-    borderRadius: "16px",
-    boxShadow: isHovered ? "0 10px 24px rgba(0,0,0,0.14)" : "0 2px 8px rgba(0,0,0,0.08)",
-    transform: isHovered ? "translateY(-4px)" : "translateY(0)",
-    transition: "all 0.25s ease",
-    textAlign: "center",
-    fontFamily: "sans-serif"
-  };
-  const buttonStyle = {
-    marginTop: "14px",
-    padding: "8px 20px",
-    borderRadius: "20px",
-    border: "none",
-    cursor: "pointer",
-    fontWeight: 600,
-    fontSize: "13px",
-    color: isFollowing ? accentColor : "#ffffff",
-    backgroundColor: isFollowing ? "#ffffff" : accentColor,
-    border: `2px solid ${accentColor}`,
-    transition: "all 0.2s ease"
-  };
-  const handleFollow = () => {
-    setIsFollowing((prev) => !prev);
-    onFollow(!isFollowing);
-  };
-  return /* @__PURE__ */ import_react3.default.createElement(
-    "div",
-    {
-      style: cardStyle,
-      onMouseEnter: () => setIsHovered(true),
-      onMouseLeave: () => setIsHovered(false)
-    },
-    /* @__PURE__ */ import_react3.default.createElement(
-      "img",
-      {
-        src: avatarUrl,
-        alt: name,
-        style: {
-          width: currentSize.avatar,
-          height: currentSize.avatar,
-          borderRadius: "50%",
-          objectFit: "cover",
-          border: `3px solid ${accentColor}`
-        }
-      }
-    ),
-    /* @__PURE__ */ import_react3.default.createElement("h3", { style: { margin: "12px 0 2px 0", color: textColor, fontSize: "17px" } }, name),
-    /* @__PURE__ */ import_react3.default.createElement("p", { style: { margin: "0 0 8px 0", color: accentColor, fontSize: "13px", fontWeight: 600 } }, role),
-    /* @__PURE__ */ import_react3.default.createElement("p", { style: { margin: 0, color: textColor, opacity: 0.7, fontSize: "13px", lineHeight: 1.5 } }, bio),
-    /* @__PURE__ */ import_react3.default.createElement("button", { style: buttonStyle, onClick: handleFollow }, isFollowing ? "Following" : "Follow")
-  );
-};
-
 // src/components/EcommerceCard/EcommerceCard.jsx
-var import_react4 = __toESM(require("react"));
+var import_react3 = __toESM(require("react"));
 var EcommerceCard = ({
   image = "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
   title = "Premium Sneakers",
@@ -224,14 +146,14 @@ var EcommerceCard = ({
   onAddToCart = () => {
   }
 }) => {
-  const [hovered, setHovered] = (0, import_react4.useState)(false);
-  const [selectedColor, setSelectedColor] = (0, import_react4.useState)(colors[0]);
+  const [hovered, setHovered] = (0, import_react3.useState)(false);
+  const [selectedColor, setSelectedColor] = (0, import_react3.useState)(colors[0]);
   const alpha = (hex, op) => {
     const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
     return "rgba(" + r + "," + g + "," + b + "," + op + ")";
   };
   const discountedPrice = price - price * (discount / 100);
-  return /* @__PURE__ */ import_react4.default.createElement(
+  return /* @__PURE__ */ import_react3.default.createElement(
     "div",
     {
       onMouseEnter: () => setHovered(true),
@@ -247,7 +169,7 @@ var EcommerceCard = ({
         boxShadow: hovered ? "0 16px 40px rgba(0,0,0,0.4)" : "0 8px 24px rgba(0,0,0,0.2)"
       }
     },
-    /* @__PURE__ */ import_react4.default.createElement("div", { style: { position: "relative", height: "200px", overflow: "hidden" } }, /* @__PURE__ */ import_react4.default.createElement(
+    /* @__PURE__ */ import_react3.default.createElement("div", { style: { position: "relative", height: "200px", overflow: "hidden" } }, /* @__PURE__ */ import_react3.default.createElement(
       "img",
       {
         src: image,
@@ -260,7 +182,7 @@ var EcommerceCard = ({
           transform: hovered ? "scale(1.05)" : "scale(1)"
         }
       }
-    ), discount > 0 && /* @__PURE__ */ import_react4.default.createElement("div", { style: {
+    ), discount > 0 && /* @__PURE__ */ import_react3.default.createElement("div", { style: {
       position: "absolute",
       top: "12px",
       right: "12px",
@@ -271,7 +193,7 @@ var EcommerceCard = ({
       fontSize: "12px",
       fontWeight: "800"
     } }, "-", discount, "%")),
-    /* @__PURE__ */ import_react4.default.createElement("div", { style: { padding: "16px" } }, /* @__PURE__ */ import_react4.default.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" } }, /* @__PURE__ */ import_react4.default.createElement("h3", { style: { fontSize: "16px", fontWeight: "700", color: "#fff", margin: 0 } }, title), /* @__PURE__ */ import_react4.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "4px" } }, /* @__PURE__ */ import_react4.default.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "#fbbf24", stroke: "none" }, /* @__PURE__ */ import_react4.default.createElement("polygon", { points: "12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" })), /* @__PURE__ */ import_react4.default.createElement("span", { style: { fontSize: "12px", color: "rgba(255,255,255,0.7)" } }, rating, " (", reviews, ")"))), /* @__PURE__ */ import_react4.default.createElement("div", { style: { marginBottom: "12px" } }, /* @__PURE__ */ import_react4.default.createElement("div", { style: { display: "flex", alignItems: "flex-end", gap: "4px" } }, /* @__PURE__ */ import_react4.default.createElement("span", { style: { fontSize: "20px", fontWeight: "800", color: "#fff" } }, currency, discountedPrice.toFixed(2)), discount > 0 && /* @__PURE__ */ import_react4.default.createElement("span", { style: { fontSize: "12px", color: "rgba(255,255,255,0.5)", textDecoration: "line-through" } }, currency, price.toFixed(2)))), /* @__PURE__ */ import_react4.default.createElement("div", { style: { marginBottom: "16px" } }, /* @__PURE__ */ import_react4.default.createElement("div", { style: { fontSize: "12px", color: "rgba(255,255,255,0.5)", marginBottom: "6px" } }, "Available colors:"), /* @__PURE__ */ import_react4.default.createElement("div", { style: { display: "flex", gap: "8px" } }, colors.map((color, i) => /* @__PURE__ */ import_react4.default.createElement(
+    /* @__PURE__ */ import_react3.default.createElement("div", { style: { padding: "16px" } }, /* @__PURE__ */ import_react3.default.createElement("div", { style: { display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" } }, /* @__PURE__ */ import_react3.default.createElement("h3", { style: { fontSize: "16px", fontWeight: "700", color: "#fff", margin: 0 } }, title), /* @__PURE__ */ import_react3.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "4px" } }, /* @__PURE__ */ import_react3.default.createElement("svg", { width: "14", height: "14", viewBox: "0 0 24 24", fill: "#fbbf24", stroke: "none" }, /* @__PURE__ */ import_react3.default.createElement("polygon", { points: "12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" })), /* @__PURE__ */ import_react3.default.createElement("span", { style: { fontSize: "12px", color: "rgba(255,255,255,0.7)" } }, rating, " (", reviews, ")"))), /* @__PURE__ */ import_react3.default.createElement("div", { style: { marginBottom: "12px" } }, /* @__PURE__ */ import_react3.default.createElement("div", { style: { display: "flex", alignItems: "flex-end", gap: "4px" } }, /* @__PURE__ */ import_react3.default.createElement("span", { style: { fontSize: "20px", fontWeight: "800", color: "#fff" } }, currency, discountedPrice.toFixed(2)), discount > 0 && /* @__PURE__ */ import_react3.default.createElement("span", { style: { fontSize: "12px", color: "rgba(255,255,255,0.5)", textDecoration: "line-through" } }, currency, price.toFixed(2)))), /* @__PURE__ */ import_react3.default.createElement("div", { style: { marginBottom: "16px" } }, /* @__PURE__ */ import_react3.default.createElement("div", { style: { fontSize: "12px", color: "rgba(255,255,255,0.5)", marginBottom: "6px" } }, "Available colors:"), /* @__PURE__ */ import_react3.default.createElement("div", { style: { display: "flex", gap: "8px" } }, colors.map((color, i) => /* @__PURE__ */ import_react3.default.createElement(
       "button",
       {
         key: i,
@@ -286,7 +208,7 @@ var EcommerceCard = ({
           boxShadow: "0 2px 4px rgba(0,0,0,0.2)"
         }
       }
-    )))), /* @__PURE__ */ import_react4.default.createElement(
+    )))), /* @__PURE__ */ import_react3.default.createElement(
       "button",
       {
         onClick: onAddToCart,
@@ -307,15 +229,155 @@ var EcommerceCard = ({
           gap: "8px"
         }
       },
-      /* @__PURE__ */ import_react4.default.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "#fff", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ import_react4.default.createElement("circle", { cx: "9", cy: "21", r: "1" }), /* @__PURE__ */ import_react4.default.createElement("circle", { cx: "20", cy: "21", r: "1" }), /* @__PURE__ */ import_react4.default.createElement("path", { d: "M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" })),
+      /* @__PURE__ */ import_react3.default.createElement("svg", { width: "16", height: "16", viewBox: "0 0 24 24", fill: "none", stroke: "#fff", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ import_react3.default.createElement("circle", { cx: "9", cy: "21", r: "1" }), /* @__PURE__ */ import_react3.default.createElement("circle", { cx: "20", cy: "21", r: "1" }), /* @__PURE__ */ import_react3.default.createElement("path", { d: "M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" })),
       "Add to Cart"
     ))
   );
+};
+
+// src/components/SearchBox/SearchBox.jsx
+var import_react4 = __toESM(require("react"));
+var SearchBox = ({
+  placeholder = "Search products...",
+  accent = "#6366f1",
+  bg = "#0f172a",
+  onSearch = (term) => console.log("Searching for:", term),
+  debounceTime = 300,
+  showSuggestions = true,
+  initialSuggestions = ["Smartphones", "Laptops", "Headphones", "Watches", "Cameras"]
+}) => {
+  const [searchTerm, setSearchTerm] = (0, import_react4.useState)("");
+  const [isFocused, setIsFocused] = (0, import_react4.useState)(false);
+  const [suggestions, setSuggestions] = (0, import_react4.useState)(initialSuggestions);
+  const timerRef = (0, import_react4.useRef)(null);
+  const inputRef = (0, import_react4.useRef)(null);
+  const alpha = (hex, op) => {
+    const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+    return "rgba(" + r + "," + g + "," + b + "," + op + ")";
+  };
+  (0, import_react4.useEffect)(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    if (searchTerm) {
+      timerRef.current = setTimeout(() => {
+        onSearch(searchTerm);
+      }, debounceTime);
+    }
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [searchTerm, debounceTime, onSearch]);
+  const handleSuggestionClick = (suggestion) => {
+    setSearchTerm(suggestion);
+    onSearch(suggestion);
+    inputRef.current.focus();
+  };
+  return /* @__PURE__ */ import_react4.default.createElement("div", { style: { position: "relative", width: "100%", maxWidth: "500px" } }, /* @__PURE__ */ import_react4.default.createElement("div", { style: {
+    display: "flex",
+    alignItems: "center",
+    background: "#1e293b",
+    borderRadius: "12px",
+    padding: "4px 14px",
+    border: "1px solid " + (isFocused ? accent : "rgba(255,255,255,0.1)"),
+    boxShadow: isFocused ? "0 0 0 2px " + alpha(accent, 0.2) : "none",
+    transition: "all 0.2s ease"
+  } }, /* @__PURE__ */ import_react4.default.createElement(
+    "svg",
+    {
+      width: "18",
+      height: "18",
+      viewBox: "0 0 24 24",
+      fill: "none",
+      style: { flexShrink: 0, marginRight: "10px" },
+      stroke: isFocused ? accent : "rgba(255,255,255,0.4)",
+      strokeWidth: "2",
+      strokeLinecap: "round",
+      strokeLinejoin: "round"
+    },
+    /* @__PURE__ */ import_react4.default.createElement("circle", { cx: "11", cy: "11", r: "8" }),
+    /* @__PURE__ */ import_react4.default.createElement("line", { x1: "21", y1: "21", x2: "16.65", y2: "16.65" })
+  ), /* @__PURE__ */ import_react4.default.createElement(
+    "input",
+    {
+      ref: inputRef,
+      type: "text",
+      value: searchTerm,
+      onChange: (e) => setSearchTerm(e.target.value),
+      onFocus: () => setIsFocused(true),
+      onBlur: () => setTimeout(() => setIsFocused(false), 200),
+      placeholder,
+      style: {
+        background: "transparent",
+        border: "none",
+        color: "#fff",
+        width: "100%",
+        fontSize: "14px",
+        padding: "10px 0",
+        outline: "none",
+        fontFamily: "system-ui, sans-serif"
+      }
+    }
+  ), searchTerm && /* @__PURE__ */ import_react4.default.createElement(
+    "button",
+    {
+      onClick: () => setSearchTerm(""),
+      style: {
+        background: "rgba(255,255,255,0.1)",
+        border: "none",
+        borderRadius: "50%",
+        width: "24px",
+        height: "24px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+        marginLeft: "8px"
+      }
+    },
+    /* @__PURE__ */ import_react4.default.createElement("svg", { width: "12", height: "12", viewBox: "0 0 24 24", fill: "none", stroke: "rgba(255,255,255,0.6)", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ import_react4.default.createElement("line", { x1: "18", y1: "6", x2: "6", y2: "18" }), /* @__PURE__ */ import_react4.default.createElement("line", { x1: "6", y1: "6", x2: "18", y2: "18" }))
+  )), showSuggestions && isFocused && searchTerm && /* @__PURE__ */ import_react4.default.createElement("div", { style: {
+    position: "absolute",
+    top: "calc(100% + 8px)",
+    left: 0,
+    right: 0,
+    background: "#1e293b",
+    borderRadius: "12px",
+    padding: "12px 0",
+    zIndex: 10,
+    boxShadow: "0 10px 20px rgba(0,0,0,0.4)",
+    border: "1px solid rgba(255,255,255,0.08)"
+  } }, suggestions.filter(
+    (suggestion) => suggestion.toLowerCase().includes(searchTerm.toLowerCase())
+  ).map((suggestion, index) => /* @__PURE__ */ import_react4.default.createElement(
+    "div",
+    {
+      key: index,
+      onMouseDown: () => handleSuggestionClick(suggestion),
+      style: {
+        padding: "10px 16px",
+        cursor: "pointer",
+        color: "rgba(255,255,255,0.8)",
+        fontSize: "14px",
+        transition: "background 0.2s",
+        fontFamily: "system-ui, sans-serif"
+      },
+      onMouseEnter: (e) => {
+        e.target.style.background = "rgba(255,255,255,0.05)";
+      },
+      onMouseLeave: (e) => {
+        e.target.style.background = "transparent";
+      }
+    },
+    suggestion
+  ))));
 };
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   Button,
   Card,
   EcommerceCard,
-  ProfileCard
+  SearchBox
 });
