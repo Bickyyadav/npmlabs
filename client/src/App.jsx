@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setUserData } from './redux/userSlice';
+import ComponentGenerator from './pages/ComponentGenerator';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -29,11 +30,10 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<Home />}>
-
-      </Route>
+      <Route path='/' element={<Home />} />
+      <Route path="/generate" element={<ComponentGenerator />} />
     </Routes>
   )
 }
-
+ 
 export default App
