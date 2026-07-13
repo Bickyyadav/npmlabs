@@ -9,6 +9,7 @@ const LiveComponentPreview = ({ code }) => {
     // ─── Sanitize Code ─────────────────────────────────────
     let sanitized = code
         .replace(/import\s+.*?from\s+["'].*?["'];?/g, "")
+        .replace(/export\s+default\s+/g, "")
         .replace(/export\s+/g, "");
 
     sanitized = sanitized
@@ -16,7 +17,7 @@ const LiveComponentPreview = ({ code }) => {
         .replace(/position\s*:\s*`fixed`/g, 'position: "absolute"')
         .replace(/\bfixed\b/g, "absolute");
 
-    const match = sanitized.match(/const\s+([A-Z]\w+)/);
+    const match = sanitized.match(/(?:const|function|let|var)\s+([A-Z]\w+)/);
     const componentName = match ? match[1] : null;
 
     const wrappedCode = componentName

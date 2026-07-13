@@ -41,6 +41,14 @@ const Home = () => {
     const [menuOpen, setMenuOpen] = useState(false)
     const [copied, setCopied] = useState(false)
 
+
+    useEffect(() => {
+        if (userData?.role === "admin") {
+            navigate("/admin");
+        }
+    }, [userData]);
+
+
     const getInitials = (name) => {
         if (!name) return "U";
         return name.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
