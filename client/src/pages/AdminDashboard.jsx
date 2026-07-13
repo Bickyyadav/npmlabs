@@ -4,7 +4,7 @@ import { TbBoxOff, TbChevronLeft, TbCode, TbCodeDots, TbDeviceFloppy, TbEye, TbL
 import { setUserData } from '../redux/userSlice'
 import { SiValorant } from 'react-icons/si'
 import { AnimatePresence } from 'motion/react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { motion } from "motion/react"
 import LiveComponentPreview from "../components/LiveComponentPreview"
 import {
@@ -25,6 +25,7 @@ const navItems = [
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [sidebarOpen, setSidebarOpen] = useState(false)
     const [activeView, setActiveView] = useState("dashboard")
     const [componentSearch, setComponentSearch] = useState("")
