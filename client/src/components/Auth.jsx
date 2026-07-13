@@ -1,6 +1,7 @@
 import React from 'react'
 import { AnimatePresence, motion } from "motion/react"
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
+import { setUserData } from '../redux/userSlice';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { FcGoogle } from "react-icons/fc";
@@ -21,14 +22,11 @@ const steps = [
 ];
 
 
-
-
-
 const Auth = ({ onClose }) => {
-    
+
     const [active, setActive] = useState(0)
-    
-    // const dispatch = useDispatch()
+
+    const dispatch = useDispatch()
 
 
     useEffect(() => {
@@ -39,15 +37,20 @@ const Auth = ({ onClose }) => {
     const handleGoogleLogin = async () => {
         try {
             const response = await signInWithPopup(auth, provider)
+            // Instantly hide the modal from the screen
+            onClose()
+
             let User = response.user
             let name = User.displayName
             let email = User.email
             const result = await axios.post(import.meta.env.VITE_SERVER_URL + "/api/auth/google", { name, email }, { withCredentials: true })
             dispatch(setUserData(result.data))
-            onClose()
         } catch (error) {
             dispatch(setUserData(null))
             console.log(error)
+        } finally {
+            window.location.reload()
+            onClose()
         }
     }
 
