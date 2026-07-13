@@ -99,12 +99,51 @@ const Home = () => {
         }
     }
 
+    const turnstileRef = useRef(null);
+    const [turnstileToken, setTurnstileToken] = useState(null);
+
+    useEffect(() => {
+        if (window.turnstile && turnstileRef.current) {
+            window.turnstile.render(turnstileRef.current, {
+                sitekey: import.meta.env.VITE_CLOUDFLARE_SITE_KEY,
+                theme: 'light',
+                callback: async function (token) {
+                    console.log("Turnstile Token generated:", token);
+                    setTurnstileToken(token);
+                    
+                    try {
+                        const res = await axios.post(
+                            import.meta.env.VITE_SERVER_URL + "/api/user/verify-token", 
+                            { token }, 
+                            { withCredentials: true }
+                        );
+                        if (res.data.success) {
+                            console.log("Token verified successfully on backend");
+                        }
+                    } catch (error) {
+                        console.error("Error verifying token on backend:", error);
+                    }
+                },
+                'error-callback': function () {
+                    console.error("Turnstile failed to load or verify.");
+                }
+            });
+        }
+    }, []);
+
+
+
     return (
         <div className="min-h-screen bg-[#030b0d] text-white overflow-x-hidden" style={{ fontFamily: "'DM Sans',sans-serif" }}>
             <style>{`@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@600;700;800&display=swap');`}</style>
             {/* BG */}
             <div className="fixed inset-0 bg-[radial-gradient(circle,rgba(59,232,255,0.025)_1px,transparent_1px)] bg-[size:28px_28px] pointer-events-none" />
             <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[min(700px,100vw)] h-64 bg-[radial-gradient(ellipse,rgba(59,232,255,0.06)_0%,transparent_70%)] pointer-events-none" />
+            
+            {/* Turnstile Overlay */}
+            <div className={`fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm ${turnstileToken ? 'hidden' : ''}`}>
+                <div ref={turnstileRef}></div>
+            </div>
             {/* ── NAVBAR ── */}
             <nav className="sticky top-0 z-40 flex items-center justify-between px-4 sm:px-8 lg:px-10 py-4 border-b border-white/[0.05] bg-[#030b0d]/85 backdrop-blur-md">
                 <div className="flex items-center gap-2.5">
