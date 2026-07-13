@@ -10,6 +10,7 @@ const paymentSchema = new mongoose.Schema({
     aiCredits: Number,
     razorpayOrderId: String,
     razorpayPaymentId: String,
+    esewaTransactionId: String,
     status: {
         type: String,
         enum: ["created", "paid", "failed"],

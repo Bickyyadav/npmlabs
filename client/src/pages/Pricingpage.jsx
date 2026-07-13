@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { motion } from "motion/react"
 import { FiArrowLeft, FiCheck, FiLock, FiZap } from 'react-icons/fi';
+import axios from 'axios';
 
 
 const plans = [
@@ -46,9 +47,37 @@ const Pricingpage = () => {
     const dispatch = useDispatch()
 
 
-    const handlePayment = (plan) => {
-        console.log("🚀 ~ handlePayment ~ plan:", plan)
+    const handlePayment = async (plan) => {
+        if (!plan.amount) return;
+        try {
+            const response = await axios.post(
+                import.meta.env.VITE_SERVER_URL + "/api/payment/create", 
+                {
+                    amount: plan.amount,
+                    aiCredits: plan.aiCredits
+                }, 
+                { withCredentials: true }
+            );
 
+            const { paymentData } = response.data;
+            const form = document.createElement("form");
+            form.setAttribute("method", "POST");
+            form.setAttribute("action", "https://rc-epay.esewa.com.np/api/epay/main/v2/form");
+
+            for (const key in paymentData) {
+                const hiddenField = document.createElement("input");
+                hiddenField.setAttribute("type", "hidden");
+                hiddenField.setAttribute("name", key);
+                hiddenField.setAttribute("value", paymentData[key]);
+                form.appendChild(hiddenField);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        } catch (error) {
+            console.error("Payment initiation failed", error);
+            alert("Failed to initiate payment");
+        }
     }
 
 

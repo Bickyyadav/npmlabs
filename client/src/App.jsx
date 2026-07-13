@@ -10,6 +10,8 @@ import Pricingpage from './pages/Pricingpage';
 import Componentspage from './pages/Componentspage';
 import MyComponentsPage from './pages/MyComponentsPage';
 import AdminDashboard from './pages/AdminDashboard';
+import SuccessPage from './pages/SuccessPage';
+import FailurePage from './pages/FailurePage';
 // import { Button, EcommerceCard, SearchBox } from "virtual-ui-library01"
 
 function App() {
@@ -72,6 +74,8 @@ function App() {
         <Route path="/pricing" element={<Pricingpage />} />
         <Route path="/component" element={<Componentspage />} />
         <Route path="/my-components" element={<MyComponentsPage />} />
+        <Route path="/payment/success" element={<SuccessPage />} />
+        <Route path="/failure" element={<FailurePage />} />
       </Routes>
     </>
     // <>

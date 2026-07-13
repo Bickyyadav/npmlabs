@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { TbBoxOff, TbChevronLeft, TbCode, TbCodeDots, TbDeviceFloppy, TbEye, TbLayoutDashboard, TbLoader, TbLogout, TbMenu2, TbPackage, TbPlus, TbSearch, TbTrash, TbUsers, TbWorld, TbX } from 'react-icons/tb'
 import { setUserData } from '../redux/userSlice'
 import { SiValorant } from 'react-icons/si'
@@ -149,6 +149,33 @@ const AdminDashboard = () => {
         const [isPublished, setIsPublished] = useState(false);
         const [toast, setToast] = useState(null);
 
+        const turnstileRef = useRef(null);
+        const [turnstileToken, setTurnstileToken] = useState(null);
+
+        useEffect(() => {
+            if (window.turnstile && turnstileRef.current) {
+                window.turnstile.render(turnstileRef.current, {
+                    sitekey: import.meta.env.VITE_CLOUDFLARE_SITE_KEY,
+                    theme: 'dark',
+                    callback: async function (token) {
+                        setTurnstileToken(token);
+                        try {
+                            await axios.post(
+                                import.meta.env.VITE_SERVER_URL + "/api/user/verify-token", 
+                                { token }, 
+                                { withCredentials: true }
+                            );
+                        } catch (error) {
+                            console.error("Error verifying token on backend:", error);
+                        }
+                    },
+                    'error-callback': function () {
+                        console.error("Turnstile failed to load or verify.");
+                    }
+                });
+            }
+        }, []);
+
 
         const showToast = (msg, type = "info") => {
             setToast({ msg, type });
@@ -158,6 +185,10 @@ const AdminDashboard = () => {
         const handleSave = async () => {
             if (!name.trim() || !code.trim()) {
                 showToast("Component name and code are required.", "error");
+                return;
+            }
+            if (!turnstileToken) {
+                showToast("Please complete the security check.", "error");
                 return;
             }
             setSaving(true);
@@ -357,8 +388,12 @@ const AdminDashboard = () => {
                         </AnimatePresence>
                     </div>
                     {/* ── Action Buttons ── */}
+                    <div className="w-full mb-3 flex justify-start">
+                        <div ref={turnstileRef}></div>
+                    </div>
                     <div className="flex items-center gap-2 sm:gap-3 flex-wrap pt-1">
                         {/* Save */}
+                        
                         <motion.button
                             onClick={handleSave}
                             disabled={saving || !!savedId}
@@ -378,6 +413,7 @@ const AdminDashboard = () => {
                                 <TbDeviceFloppy size={15} />
                             )}
                             {saving ? "Saving..." : savedId ? "Saved ✓" : "Save Component"}
+
 
                         </motion.button>
                         {/* Publish */}
