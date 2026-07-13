@@ -9,6 +9,18 @@ export const createOrder = async (req, res) => {
             return res.status(400).json({ message: "Invalid plan data" });
         }
 
+        const VALID_PLANS = [
+            { amount: 99, aiCredits: 200 },
+        ];
+
+        const isValidPlan = VALID_PLANS.some(
+            (plan) => plan.amount === amount && plan.aiCredits === aiCredits
+        );
+
+        if (!isValidPlan) {
+            return res.status(400).json({ message: "Invalid payment amount or credits requested. Please do not manipulate the payment data." });
+        }
+
         const userId = req.userId || req.user?._id; // Ensure you have user ID from your auth middleware
 
         const transaction_uuid = crypto.randomUUID();

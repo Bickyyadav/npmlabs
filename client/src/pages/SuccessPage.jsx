@@ -18,16 +18,16 @@ const SuccessPage = () => {
         setLoading(false);
         return;
       }
-      
+
       try {
         const res = await axios.get(import.meta.env.VITE_SERVER_URL + `/api/payment/verify-esewa?data=${data}`);
-        
+
         // Update user data to fetch new aiCredits
         const userRes = await axios.get(import.meta.env.VITE_SERVER_URL + "/api/user/currentuser", {
           withCredentials: true
         });
         dispatch(setUserData(userRes.data));
-        
+
       } catch (err) {
         console.error(err);
         setError('Payment verification failed.');
